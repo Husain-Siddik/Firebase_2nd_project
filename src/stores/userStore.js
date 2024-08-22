@@ -10,6 +10,9 @@ export const UseUserStore = defineStore('user', {
 
         email: '',
         password: '',
+        succesRegistretion: false,
+        ErrorREgisterUser: false,
+        ErrorMassage: '',
 
     }),
     getters: {
@@ -18,7 +21,15 @@ export const UseUserStore = defineStore('user', {
     actions: {
 
         handleRegister() {
-            console.log('Clicked  succesfully')
+            if(this.password.length < 6){
+             //Error mssage
+             this.ErrorMassage =" Password Should At Least 6 Charrecter"
+             console.log(this.ErrorMassage);
+ 
+             return
+
+            }
+ 
 
             //Create An user 
             createUserWithEmailAndPassword(Auth, this.email, this.password)
@@ -26,16 +37,30 @@ export const UseUserStore = defineStore('user', {
                     // Signed up 
                     const user = userCredential.user;
                     console.log(user);
-                    
+                    //for registration succes massage
+                    this.succesRegistretion = true;
+                    this.ErrorREgisterUser = false;
                     // ...
                 })
                 .catch((error) => {
                     //const errorCode = error.code;
-                    //const errorMessage = error.message;
+                    this.ErrorMassage = error.message;
                     // ..
                     console.log(error);
-                    
-                });
+                    this.ErrorREgisterUser = true;
+                    this.succesRegistretion = false;
+
+                })
+                .finally(() => {
+                    console.log('From data removed');
+                    this.email = '';
+                    this.password = '';
+                    //this.succesRegistretion = false;
+                    //this.ErrorREgisterUser = false;
+
+                })
+
+
 
 
 
