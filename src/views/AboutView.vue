@@ -4,10 +4,11 @@
   </div>
 
   <div>
-    
+  
   </div>
 </template>
 
-<style>
+<script setup>
 
-</style>
+</script>
+
