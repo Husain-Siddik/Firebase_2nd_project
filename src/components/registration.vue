@@ -83,28 +83,42 @@
           </div>
 
           <!-- succes massage -->
-          <div v-if="store.succesRegistretion">
-            <div role="alert" class="alert alert-success">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Succesfully Register User!</span>
+          <!-- <div v-if="store.succesRegistretion">
+            <div>
+            <div class="toast toast-top toast-center">
+              <div class="alert alert-success">
+                <span>Registration Succesfull.</span>
+              </div>
             </div>
+          </div>
           </div>
           <!--  -->
           <!--Registration error massage  -->
-          <div role="alert" class="alert alert-error" v-if="store.ErrorREgisterUser || store.ErrorMassage">
+          <!-- <div role="alert" class="alert alert-error" v-if="store.ErrorREgisterUser || store.ErrorMassage">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
               viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>Error! {{ store.ErrorMassage }}</span>
-          </div>
-          <!--  -->
+          </div> -->
 
+          <!-- toast -->
+          <div >
+            <div class="toast toast-top toast-center">
+              <div v-if="store.RegistrationToast" class="alert alert-success">
+                <span>Registration Succesfull.</span>
+              </div>
+              <div v-if="store.FaildRegistrationToast" class="alert alert-info bg-red-800 text-center">
+                <span class="text-white text-lg ">Registration faild.</span>
+                <br>
+                <span>{{ store.ErrorMassage }}</span>
+              </div>
+            </div>
+          </div>
+          <!-- registration faild toast -->
+          
+          <!--  -->
 
 
         </div>

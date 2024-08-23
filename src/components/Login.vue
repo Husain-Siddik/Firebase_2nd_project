@@ -29,19 +29,19 @@
                 <div class="relative inline-block">
 
                   <input type="password" name="password" placeholder="password" class="input input-bordered w-full"
-                    v-model="store.LogInUserPassword"
-                    v-if="!showPass"
-                     required />
-                     <!--  -->
+                    v-model="store.LogInUserPassword" v-if="!showPass" required />
+                  <!--  -->
                   <input type="text" name="password" placeholder="password" class="input input-bordered w-full"
-                    v-model="store.LogInUserPassword"
-                    v-if="showPass"
-                     required />
+                    v-model="store.LogInUserPassword" v-if="showPass" required />
 
 
                   <span class="absolute ml-[-2rem] mt-3" @click="ShowPassword">
-                    <div v-if="showPass"><GlEye></GlEye></div>
-                    <div v-if="!showPass"><GlEyeSlash></GlEyeSlash></div>
+                    <div v-if="showPass">
+                      <GlEye></GlEye>
+                    </div>
+                    <div v-if="!showPass">
+                      <GlEyeSlash></GlEyeSlash>
+                    </div>
                   </span>
                 </div>
                 <!--  -->
@@ -58,6 +58,15 @@
             <!-- from end -->
           </form>
           {{ store.LogInUsername }}
+          <!-- toster massage -->
+          <div v-if="store.logInToast">
+            <div class="toast toast-top toast-center">
+              <div class="alert alert-success">
+                <span>Login Succesfull.</span>
+              </div>
+            </div>
+          </div>
+          <!--  -->
         </div>
       </div>
     </div>
@@ -66,14 +75,15 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import { GlEye, GlEyeSlash } from '@kalimahapps/vue-icons'
 import { UseSignInUserStore } from '../stores/SignInUserStore'
-const store = UseSignInUserStore() 
+const store = UseSignInUserStore()
 const showPass = ref(false)
 
-function ShowPassword(){
-  console.log("Show /hide pass");
+// for hiding showing pass
+
+function ShowPassword() {
   showPass.value = !showPass.value
 }
 

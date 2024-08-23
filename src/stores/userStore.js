@@ -11,9 +11,10 @@ export const UseUserStore = defineStore('user', {
         email: '',
         password: '',
         termsChaked: false,
-        succesRegistretion: false,
         ErrorREgisterUser: false,
         ErrorMassage: '',
+        RegistrationToast: '',
+        FaildRegistrationToast :'',
 
     }),
     getters: {
@@ -46,28 +47,29 @@ export const UseUserStore = defineStore('user', {
                     // Signed up 
                     const user = userCredential.user;
                     console.log(user);
-                    //for registration succes massage
-                    this.succesRegistretion = true;
-                    this.ErrorREgisterUser = false;
-                    this.ErrorMassage =''; 
+                  
+                    this.ErrorMassage ='';
+                    this.RegistrationToast =true;
+                   
                     // ...
                 })
                 .catch((error) => {
-                    //const errorCode = error.code;
+                    
                     this.ErrorMassage = error.message;
                     // ..
-                    //console.log(error);
-                    this.ErrorREgisterUser = true;
-                    this.succesRegistretion = false;
+                
+                    this.FaildRegistrationToast = true;
 
                 })
                 .finally(() => {
                     console.log('From data removed');
                     this.email = '';
                     this.password = '';
-                    //this.succesRegistretion = false;
-                    //this.ErrorREgisterUser = false;
-
+                    // showing toast for 1.6 second
+                    setTimeout(() => {
+                        this.RegistrationToast =false;
+                        this.FaildRegistrationToast = false;
+                    }, 1600);
                 })
 
         },
