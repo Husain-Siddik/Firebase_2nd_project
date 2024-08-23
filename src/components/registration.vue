@@ -27,11 +27,38 @@
                 <label class="label">
                   <span class="label-text">Password</span>
                 </label>
-                <input v-model="store.password" type="password" placeholder="password" class="input input-bordered"
-                  required />
+
+                <!-- password icon inner password input fild -->
+                <div class="relative inline-block ">
+                  <!-- if Show password -->
+                  <input v-if="!showpass" v-model="store.password" type="password" placeholder="password"
+                    class="input input-bordered w-[100%] " required />
+                  <!-- if hide pass this will render -->
+                  <input v-if="showpass" v-model="store.password" type="text" placeholder="password"
+                    class="input input-bordered w-[100%] " required />
+
+                  <!--Icon in input fild  -->
+                  <span class="absolute ml-[-30px] mt-3" @click="Showpassword">
+                    <span v-if="showpass">
+                      <BsEyeFill />
+                    </span>
+                    <span v-if="!showpass">
+                      <BsEyeSlashFill />
+                    </span>
+                  </span>
+
+                </div>
+                <!--  -->
+
                 <label class="label">
                   <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
                 </label>
+                <!-- termes and Condition -->
+                <div class="mt-2">
+                  <input class="mr-2" type="checkbox" name="terms" id="terms" v-model="store.termsChaked">
+                  <label for="terms">Accept <a href=""></a> Our Terms and Condition</label>
+                </div>
+                <!--  -->
               </div>
               <div class="form-control mt-6">
                 <button type="submit" class="btn btn-primary">Register</button>
@@ -41,10 +68,9 @@
           </form>
 
           <!--  -->
-          <!-- Open the modal using ID.showModal() method -->
 
           <!--  -->
-          <div class="flex items-center justify-center">
+          <div class="flex items-center justify-start ml-8">
             <p>Allredy have an account ?</p>
             <p class="btn btn-link">
               <router-link to="/login">login</router-link>
@@ -69,7 +95,7 @@
           </div>
           <!--  -->
           <!--Registration error massage  -->
-          <div role="alert" class="alert alert-error" v-if="store.ErrorREgisterUser ||store.ErrorMassage ">
+          <div role="alert" class="alert alert-error" v-if="store.ErrorREgisterUser || store.ErrorMassage">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
               viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -91,12 +117,22 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
+import { BsEyeSlashFill, BsEyeFill } from '@kalimahapps/vue-icons';
+
 import { UseUserStore } from '../stores/userStore'
 const store = UseUserStore()
 
 // const email =ref('');
-//  const password=ref(''); 
+const showpass = ref(false);
+//  const password=ref('');
+
+function Showpassword() {
+
+  showpass.value = !showpass.value;
+  console.log(showpass.value);
+
+}
 
 
 </script>

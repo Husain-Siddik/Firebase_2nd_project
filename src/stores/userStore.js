@@ -10,6 +10,7 @@ export const UseUserStore = defineStore('user', {
 
         email: '',
         password: '',
+        termsChaked: false,
         succesRegistretion: false,
         ErrorREgisterUser: false,
         ErrorMassage: '',
@@ -17,19 +18,27 @@ export const UseUserStore = defineStore('user', {
     }),
     getters: {
         // doubleCount: (state) => state.count * 2,
+
     },
     actions: {
 
         handleRegister() {
-            if(this.password.length < 6){
-             //Error mssage
-             this.ErrorMassage =" Password Should At Least 6 Charrecter"
-             console.log(this.ErrorMassage);
- 
-             return
-
+            // Chechaking password length before account creation 
+            if (this.password.length < 6) {
+                //Error mssage
+                this.ErrorMassage = " Password Should At Least 6 Charrecter"
+                console.log(this.ErrorMassage);
+                return
             }
- 
+
+            // terms and condition cheack
+
+            if (!this.termsChaked) {
+                this.ErrorMassage = "please accept our terms and condition"
+                return
+                // return kora important ta na hole porer code run hoye jabe ..so
+                //return korle ager code tekei back jabe
+            }
 
             //Create An user 
             createUserWithEmailAndPassword(Auth, this.email, this.password)
@@ -40,13 +49,14 @@ export const UseUserStore = defineStore('user', {
                     //for registration succes massage
                     this.succesRegistretion = true;
                     this.ErrorREgisterUser = false;
+                    this.ErrorMassage =''; 
                     // ...
                 })
                 .catch((error) => {
                     //const errorCode = error.code;
                     this.ErrorMassage = error.message;
                     // ..
-                    console.log(error);
+                    //console.log(error);
                     this.ErrorREgisterUser = true;
                     this.succesRegistretion = false;
 
@@ -59,11 +69,6 @@ export const UseUserStore = defineStore('user', {
                     //this.ErrorREgisterUser = false;
 
                 })
-
-
-
-
-
 
         },
 
