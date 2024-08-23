@@ -46,7 +46,7 @@
                 </div>
                 <!--  -->
                 <label class="label">
-                  <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                  <a href="#" class="label-text-alt link link-hover" v-on:click="store.handleForgotPass">Forgot password?</a>
                   <a class="btn btn-link"> <router-link to="/registration">Create An Account</router-link></a>
                 </label>
               </div>
@@ -57,12 +57,15 @@
             </div>
             <!-- from end -->
           </form>
-          {{ store.LogInUsername }}
           <!-- toster massage -->
-          <div v-if="store.logInToast">
+          <div >
             <div class="toast toast-top toast-center">
-              <div class="alert alert-success">
+              <div v-if="store.logInToast" class="alert alert-success">
                 <span>Login Succesfull.</span>
+              </div>
+              <div v-if="store.LoginFaild" class="alert alert-success bg-orange-700">
+                <span class="p-8">Login Faild.</span>
+                <span>{{ store.LoginFaildErrorMassage }}</span>
               </div>
             </div>
           </div>

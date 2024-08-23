@@ -2,8 +2,8 @@
   <div>
     <div class="hero bg-base-200 min-h-screen">
       <div class="hero-content flex-col lg:flex-row-reverse">
-        <div class="text-center lg:text-left">
-          <h1 class="text-5xl font-bold">Registration Here!</h1>
+        <div class="text-center lg:text-left ml-10">
+          <h1 class="text-5xl font-bold ">Registration Here!</h1>
           <p class="py-6">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
@@ -16,6 +16,23 @@
           <form v-on:submit.prevent="store.handleRegister">
 
             <div class="card-body">
+              <!-- Fullname -->
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Full name</span>
+                </label>
+                <input v-model="store.fullname" type="text" name="Fullname" placeholder="Type your Full name here"
+                  class="input input-bordered" required />
+              </div>
+
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Photo Url</span>
+                </label>
+                <input v-model="store.photourl" type="url" name="photoUrl" placeholder="Photo Url" class="input input-bordered"
+                   />
+              </div>
+              <!--  -->
               <div class="form-control">
                 <label class="label">
                   <span class="label-text">Email</span>
@@ -23,6 +40,10 @@
                 <input v-model="store.email" type="email" name="name" placeholder="email" class="input input-bordered"
                   required />
               </div>
+              <!--  -->
+
+              <!--  -->
+
               <div class="form-control">
                 <label class="label">
                   <span class="label-text">Password</span>
@@ -83,28 +104,8 @@
           </div>
 
           <!-- succes massage -->
-          <!-- <div v-if="store.succesRegistretion">
-            <div>
-            <div class="toast toast-top toast-center">
-              <div class="alert alert-success">
-                <span>Registration Succesfull.</span>
-              </div>
-            </div>
-          </div>
-          </div>
-          <!--  -->
-          <!--Registration error massage  -->
-          <!-- <div role="alert" class="alert alert-error" v-if="store.ErrorREgisterUser || store.ErrorMassage">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Error! {{ store.ErrorMassage }}</span>
-          </div> -->
-
           <!-- toast -->
-          <div >
+          <div>
             <div class="toast toast-top toast-center">
               <div v-if="store.RegistrationToast" class="alert alert-success">
                 <span>Registration Succesfull.</span>
@@ -117,7 +118,7 @@
             </div>
           </div>
           <!-- registration faild toast -->
-          
+
           <!--  -->
 
 

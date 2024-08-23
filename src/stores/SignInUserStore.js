@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword ,sendPasswordResetEmail} from "firebase/auth";
 import Auth from '../Firebase/Firebase.config'
 
 export const UseSignInUserStore = defineStore('SignInUser', {
@@ -9,6 +9,8 @@ export const UseSignInUserStore = defineStore('SignInUser', {
             logInToast: '',
             LogInUserEmail: '',
             LogInUserPassword: '',
+            LoginFaild :'',
+            LoginFaildErrorMassage : '',
 
         }
     ),
@@ -33,6 +35,10 @@ export const UseSignInUserStore = defineStore('SignInUser', {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
+                    // check email is verifide or not
+                    if(!user.emailVerified){
+                    alert('plece verifide your email')
+                    }
                     this.LogInUser = user;
                     this.logInToast = true;
                     // ...
@@ -41,6 +47,10 @@ export const UseSignInUserStore = defineStore('SignInUser', {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorCode, errorMessage);
+                    // for toast
+                    this.LoginFaild =true;
+                    // error masage
+                    this.LoginFaildErrorMassage = errorMessage;
 
                 }).finally(() => {
                     this.LogInUserEmail = "";
@@ -48,8 +58,27 @@ export const UseSignInUserStore = defineStore('SignInUser', {
                     // toast showing for 1.3 second Log In succes full
                     setTimeout(() => {
                         this.logInToast = false;
+                        this.LoginFaild = false
                     }, 1300);
                 });
+
+        },
+
+        handleForgotPass(){
+            sendPasswordResetEmail(Auth, this.LogInUserEmail)
+            .then(() => {
+              // Password reset email sent!
+              // ..
+              console.log("succesfull");
+              
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log(errorCode,errorMessage);
+              
+              // ..
+            });
 
         },
 

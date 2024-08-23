@@ -2,19 +2,21 @@ import { defineStore } from "pinia";
 
 //Auth form Firebase Config and Other nesseary item for firebase
 import Auth from "@/Firebase/Firebase.config";
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword,updateProfile, sendEmailVerification } from "firebase/auth"
+
 //
 
 export const UseUserStore = defineStore('user', {
     state: () => ({
-
+        fullname: '',
+        photourl: '',
         email: '',
         password: '',
         termsChaked: false,
         ErrorREgisterUser: false,
         ErrorMassage: '',
         RegistrationToast: '',
-        FaildRegistrationToast :'',
+        FaildRegistrationToast: '',
 
     }),
     getters: {
@@ -43,21 +45,54 @@ export const UseUserStore = defineStore('user', {
 
             //Create An user 
             createUserWithEmailAndPassword(Auth, this.email, this.password)
-                .then((userCredential) => {
+                .then((result) => {
                     // Signed up 
-                    const user = userCredential.user;
+                    const user = result.user;
                     console.log(user);
-                  
-                    this.ErrorMassage ='';
-                    this.RegistrationToast =true;
-                   
-                    // ...
+                    // have to update user profile befor verification
+
+                    updateProfile(user,
+                        {
+                             displayName:this.fullname, photoURL: this.photourl
+                        })
+                        .then(() => {
+                            // Profile updated!
+                            // ...
+                            console.log("profile update");
+                            
+                        }).catch((error) => {
+                            // An error occurred
+                            // ...
+                            console.log(error);
+
+                        });
+
+
+                    // sent user verification email
+
+                    sendEmailVerification(user)
+                        .then(() => {
+                            // Email verification sent!
+                            // ...
+                            console.log("sent email verification mail");
+                            alert("place checke your email for verification")
+
+                        });
+                    // 
+
+                    //    
+                    this.ErrorMassage = '';
+                    this.RegistrationToast = true;
+                    //    
+
+
+
                 })
                 .catch((error) => {
-                    
+
                     this.ErrorMassage = error.message;
                     // ..
-                
+
                     this.FaildRegistrationToast = true;
 
                 })
@@ -67,9 +102,9 @@ export const UseUserStore = defineStore('user', {
                     this.password = '';
                     // showing toast for 1.6 second
                     setTimeout(() => {
-                        this.RegistrationToast =false;
+                        this.RegistrationToast = false;
                         this.FaildRegistrationToast = false;
-                    }, 1600);
+                    }, 5000);
                 })
 
         },
