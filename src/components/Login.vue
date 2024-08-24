@@ -126,9 +126,11 @@ function loginWithGoogle(){
 }
 // from er data update howar por profle page e redirect kora
 onUpdated(() => {
-  console.log("From data updated");
+  console.log("From data updated now go to profile page");
+  // 1.3 second pore pataia dewa
+ setTimeout(() => {
   router.push('/profile')
-  
+ },1300);
 })
 </script>
 
