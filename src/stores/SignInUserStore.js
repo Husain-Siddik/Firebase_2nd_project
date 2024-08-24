@@ -1,6 +1,9 @@
 import { defineStore } from "pinia";
-import { signInWithEmailAndPassword ,sendPasswordResetEmail} from "firebase/auth";
+import { signInWithEmailAndPassword ,sendPasswordResetEmail,signOut} from "firebase/auth";
 import Auth from '../Firebase/Firebase.config'
+
+// 
+
 
 export const UseSignInUserStore = defineStore('SignInUser', {
     state: () => (
@@ -11,6 +14,7 @@ export const UseSignInUserStore = defineStore('SignInUser', {
             LogInUserPassword: '',
             LoginFaild :'',
             LoginFaildErrorMassage : '',
+             //LoginData : {},
 
         }
     ),
@@ -34,12 +38,16 @@ export const UseSignInUserStore = defineStore('SignInUser', {
                 .then((userCredential) => {
                     // Signed in 
                     const user = userCredential.user;
-                    console.log(user);
+                    //console.log(user);
                     // check email is verifide or not
                     if(!user.emailVerified){
                     alert('plece verifide your email')
                     }
                     this.LogInUser = user;
+                    // testing
+                  
+                    
+                    // 
                     this.logInToast = true;
                     // ...
                 })
@@ -82,5 +90,24 @@ export const UseSignInUserStore = defineStore('SignInUser', {
 
         },
 
+        handelSignout(){
+            signOut(Auth)
+            .then(() => {
+                // Sign-out successful.
+                console.log("sing out");
+                
+                this.LogInUser = '';
+                // 
+                
+
+              }).catch((error) => {
+                // An error happened.
+                console.log(error);
+                
+              });
+            
+        }
     },
+   
+    
 })

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 //Auth form Firebase Config and Other nesseary item for firebase
 import Auth from "@/Firebase/Firebase.config";
-import { createUserWithEmailAndPassword,updateProfile, sendEmailVerification } from "firebase/auth"
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth"
 
 //
 
@@ -17,7 +17,7 @@ export const UseUserStore = defineStore('user', {
         ErrorMassage: '',
         RegistrationToast: '',
         FaildRegistrationToast: '',
-
+        UserData:{},
     }),
     getters: {
         // doubleCount: (state) => state.count * 2,
@@ -48,18 +48,22 @@ export const UseUserStore = defineStore('user', {
                 .then((result) => {
                     // Signed up 
                     const user = result.user;
-                    console.log(user);
+                    this.UserData = user;
+                   // console.log(this.UserData);
+                    
+                    
+                    
                     // have to update user profile befor verification
 
                     updateProfile(user,
                         {
-                             displayName:this.fullname, photoURL: this.photourl
+                            displayName: this.fullname, photoURL: this.photourl
                         })
                         .then(() => {
                             // Profile updated!
                             // ...
                             console.log("profile update");
-                            
+
                         }).catch((error) => {
                             // An error occurred
                             // ...
