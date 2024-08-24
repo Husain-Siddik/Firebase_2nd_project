@@ -57,6 +57,30 @@
             </div>
             <!-- from end -->
           </form>
+          <!-- google-FAcebook login -->
+
+         <div class=" mx-auto w-5/6 pb-3">
+          <div class="flex items-center justify-center py-2 ">
+            <button class="btn w-full" v-on:click="loginWithGoogle">
+            <McGoogleFill/>
+             Login with Google
+            </button>
+          </div>
+          <div class="flex  items-center justify-center py-2">
+            <button class="btn w-full ">
+            <AkFacebookFill/>
+             Login with Facebook
+            </button>
+          </div>
+          <div class="flex items-center justify-center py-2">
+            <button class="btn w-full ">
+              <AkFacebookFill/>
+             Login with Git hub
+            </button>
+          </div>
+         </div>
+        
+          <!--  -->
           <!-- toster massage -->
           <div >
             <div class="toast toast-top toast-center">
@@ -78,20 +102,34 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { GlEye, GlEyeSlash } from '@kalimahapps/vue-icons'
+import { ref ,onUpdated} from 'vue'
+import {useRouter} from 'vue-router'
+import { GlEye, GlEyeSlash,AkFacebookFill,McGoogleFill } from '@kalimahapps/vue-icons'
 import { UseSignInUserStore } from '../stores/SignInUserStore'
 
+const router = useRouter()
 const store = UseSignInUserStore()
 
 const showPass = ref(false)
+
+
+//
 
 // for hiding showing pass
 
 function ShowPassword() {
   showPass.value = !showPass.value
+};
+function loginWithGoogle(){
+  store.handleGoogleLogin();
+ 
 }
-
+// from er data update howar por profle page e redirect kora
+onUpdated(() => {
+  console.log("From data updated");
+  router.push('/profile')
+  
+})
 </script>
 
 <style></style>

@@ -17,7 +17,7 @@ export const UseUserStore = defineStore('user', {
         ErrorMassage: '',
         RegistrationToast: '',
         FaildRegistrationToast: '',
-        UserData:{},
+        UserData: {},
     }),
     getters: {
         // doubleCount: (state) => state.count * 2,
@@ -30,7 +30,7 @@ export const UseUserStore = defineStore('user', {
             if (this.password.length < 6) {
                 //Error mssage
                 this.ErrorMassage = " Password Should At Least 6 Charrecter"
-                console.log(this.ErrorMassage);
+                //console.log(this.ErrorMassage);
                 return
             }
 
@@ -49,10 +49,8 @@ export const UseUserStore = defineStore('user', {
                     // Signed up 
                     const user = result.user;
                     this.UserData = user;
-                   // console.log(this.UserData);
-                    
-                    
-                    
+                    // console.log(this.UserData);
+
                     // have to update user profile befor verification
 
                     updateProfile(user,
@@ -62,7 +60,7 @@ export const UseUserStore = defineStore('user', {
                         .then(() => {
                             // Profile updated!
                             // ...
-                            console.log("profile update");
+                            //console.log("profile update");
 
                         }).catch((error) => {
                             // An error occurred
@@ -78,25 +76,19 @@ export const UseUserStore = defineStore('user', {
                         .then(() => {
                             // Email verification sent!
                             // ...
-                            console.log("sent email verification mail");
+                            //console.log("sent email verification mail");
                             alert("place checke your email for verification")
 
                         });
-                    // 
-
                     //    
                     this.ErrorMassage = '';
                     this.RegistrationToast = true;
                     //    
-
-
-
                 })
                 .catch((error) => {
 
                     this.ErrorMassage = error.message;
                     // ..
-
                     this.FaildRegistrationToast = true;
 
                 })
@@ -104,11 +96,11 @@ export const UseUserStore = defineStore('user', {
                     console.log('From data removed');
                     this.email = '';
                     this.password = '';
-                    // showing toast for 1.6 second
+                    // showing toast for 2 second
                     setTimeout(() => {
                         this.RegistrationToast = false;
                         this.FaildRegistrationToast = false;
-                    }, 5000);
+                    }, 2000);
                 })
 
         },

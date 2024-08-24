@@ -29,8 +29,8 @@
                 <label class="label">
                   <span class="label-text">Photo Url</span>
                 </label>
-                <input v-model="store.photourl" type="url" name="photoUrl" placeholder="Photo Url" class="input input-bordered"
-                   />
+                <input v-model="store.photourl" type="url" name="photoUrl" placeholder="Photo Url"
+                  class="input input-bordered" />
               </div>
               <!--  -->
               <div class="form-control">
@@ -97,12 +97,9 @@
               <router-link to="/login">login</router-link>
             </p>
           </div>
-          <div class="flex items-center justify-center py-2">
-            <button class="btn btn-outline btn-secondary">
-              Register with google
-            </button>
-          </div>
-
+          <!--  -->
+          
+          <!--  -->
           <!-- succes massage -->
           <!-- toast -->
           <div>
@@ -145,7 +142,7 @@ const showpass = ref(false);
 function Showpassword() {
 
   showpass.value = !showpass.value;
-  console.log(showpass.value);
+  // console.log(showpass.value);
 
 }
 

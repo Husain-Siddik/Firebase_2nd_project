@@ -17,10 +17,20 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
+      meta: { requiresAuth: true },
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/AboutView.vue'),
+      beforeEnter: (to, from, next) => {
+        const signInUserStore = UseSignInUserStore()
+        const isAuthenticated = signInUserStore.LogInUser;
+        if (to.meta.requiresAuth && !isAuthenticated) {
+          next('/login');
+        }else{
+          next();
+        }
+      }
     },
     {
       path: '/login',
